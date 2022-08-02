@@ -1,0 +1,6 @@
+#!/bin/bash
+# -*- coding: utf-8 -*-
+
+if which neofetch &>/dev/null; then
+    neofetch
+fi
