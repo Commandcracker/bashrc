@@ -3,6 +3,7 @@
 
 # vim & vi = nvim or vi = vim
 if __check_exec nvim; then
+    # https://neovim.io/
     alias vim="nvim"
     alias vi="nvim"
 else
@@ -12,6 +13,7 @@ else
 fi
 
 if __check_exec lvim; then
+    # https://www.lunarvim.org
     alias vi="lvim"
     alias vim="lvim"
     alias nvim="lvim"
