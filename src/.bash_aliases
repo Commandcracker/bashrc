@@ -11,6 +11,12 @@ else
     fi
 fi
 
+if __check_exec lvim; then
+    alias vi="lvim"
+    alias vim="lvim"
+    alias nvim="lvim"
+fi
+
 # Colorize output (good for log files)
 alias diff='diff --color=auto'
 
