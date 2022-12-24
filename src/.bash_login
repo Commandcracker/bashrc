@@ -1,6 +1,12 @@
 #!/bin/bash
 # -*- coding: utf-8 -*-
 
-#if which neofetch &>/dev/null; then
-#    neofetch
-#fi
+if __check_exec fastfetch; then
+    # https://github.com/LinusDierheimer/fastfetch
+    fastfetch
+else
+    if __check_exec neofetch; then
+        # https://github.com/dylanaraps/neofetch
+        neofetch
+    fi
+fi
