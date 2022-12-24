@@ -41,17 +41,25 @@ if [ -f ~/.bash_login ]; then
 	. ~/.bash_login
 fi
 
-# Colors
-BLUE="\033[0;34m"
-RED="\033[0;31m"
-BOLD="\033[1m"
-NO_BOLD="\033[22m"
-RESET="\033[0m"
-BRIGHT_RED="\033[1;91m"
-GRAY="\033[1;90m"
-GREEN="\033[0;32m"
+# escape sequences see https://en.wikipedia.org/wiki/ANSI_escape_code
+ESC='\033'
+CSI="$ESC["
 
-# Icons
+# see https://unix.stackexchange.com/questions/28827/why-is-my-bash-prompt-getting-bugged-when-i-browse-the-history
+CS="\["
+CW="\]"
+
+# Colors
+BLUE="$CS${CSI}0;34m$CW"
+RED="$CS${CSI}0;31m$CW"
+BOLD="$CS${CSI}1m$CW"
+NO_BOLD="$CS${CSI}22m$CW"
+RESET="$CS${CSI}0m$CW"
+BRIGHT_RED="$CS${CSI}1;91m$CW"
+GRAY="$CS${CSI}1;90m$CW"
+GREEN="$CS${CSI}0;32m$CW"
+
+# Icons see https://www.nerdfonts.com/cheat-sheet
 fedora_icon=""
 
 # Set PS1
