@@ -1,6 +1,13 @@
 #!/bin/bash
 # -*- coding: utf-8 -*-
 
+# codium > code
+if __check_exec codium; then
+    # https://github.com/VSCodium/vscodium
+    alias code="codium"
+    alias vscodium="codium"
+fi
+
 # vim & vi = nvim or vi = vim
 if __check_exec nvim; then
     # https://neovim.io/
@@ -90,11 +97,9 @@ alias cls='clear'
 
 # get ip command
 if __check_exec curl; then
-    alias publicip="curl https://ipinfo.io/ip ; echo"
-else
-    if __check_exec wget; then
-        alias publicip="wget -qO- https://ipecho.net/plain ; echo"
-    fi
+    alias publicip="curl https://ifconfig.co"
+    alias publicipv4="curl -4 https://ifconfig.co"
+    alias publicipv6="curl -6 https://ifconfig.co"
 fi
 
 # cd into the previous working directory by omitting `cd`.
