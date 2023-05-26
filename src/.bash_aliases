@@ -1,6 +1,12 @@
 #!/bin/bash
 # -*- coding: utf-8 -*-
 
+# dnf5 > dnf
+if __check_exec dnf5; then
+    # https://fedoraproject.org/wiki/Changes/ReplaceDnfWithDnf5
+    alias dnf="dnf5"
+fi
+
 # codium > code
 if __check_exec codium; then
     # https://github.com/VSCodium/vscodium
