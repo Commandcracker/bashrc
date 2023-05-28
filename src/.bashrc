@@ -3,8 +3,8 @@
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -73,75 +73,53 @@ if [ -f ~/.bash_login ]; then
 	. ~/.bash_login
 fi
 
-# escape sequences see https://en.wikipedia.org/wiki/ANSI_escape_code
-ESC='\033'
-CSI="$ESC["
-
-# see https://unix.stackexchange.com/questions/28827/why-is-my-bash-prompt-getting-bugged-when-i-browse-the-history
-CS="\["
-CW="\]"
-
-# Colors
-BLUE="$CS${CSI}0;34m$CW"
-RED="$CS${CSI}0;31m$CW"
-BOLD="$CS${CSI}1m$CW"
-NO_BOLD="$CS${CSI}22m$CW"
-RESET="$CS${CSI}0m$CW"
-BRIGHT_RED="$CS${CSI}1;91m$CW"
-GRAY="$CS${CSI}1;90m$CW"
-GREEN="$CS${CSI}0;32m$CW"
-
-# Icons see https://www.nerdfonts.com/cheat-sheet
-fedora_icon=""
-
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+	debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-prompt_symbol=@
+prompt_color='\[\033[1;32m\]'
+info_color='\[\033[1;34m\]'
+prompt_symbol="🧑"
 
 if [ "$EUID" -eq 0 ]; then # Change prompt colors for root user
-    #prompt_color='\[\033[;94m\]'
-    #info_color='\[\033[1;31m\]'
-    # Skull emoji for root terminal
-    prompt_symbol=💀
+	prompt_color='\[\033[;94m\]'
+	info_color='\[\033[1;31m\]'
+	# Skull emoji for root terminal
+	prompt_symbol="💀"
 fi
+
+white_color="\[\033[0;1m\]"
+
+GIT_PS1_SHOWCOLORHINTS=true
+GIT_PS1_SHOWDIRTYSTATE=true
 
 # Set PS1
 if [ -f ~/.git-prompt.sh ]; then
 	. ~/.git-prompt.sh
-	export PROMPT_COMMAND='__git_ps1 "$BLUE$fedora_icon $RESET[$BLUE$BOLD\t $BRIGHT_RED$BOLD\u$RESET$prompt_symbol$GRAY$BOLD\h $BLUE$BOLD\w$GREEN" "$RESET]\\$ "'
+	PROMPT_COMMAND='__git_ps1 "'$prompt_color'┌──['$info_color'\t'$prompt_color']-${debian_chroot:+('$white_color'$debian_chroot'$prompt_color')──}${VIRTUAL_ENV:+('$white_color'$(basename $VIRTUAL_ENV)'$prompt_color')}('$info_color'\u'$prompt_symbol'\h'$prompt_color')-['$white_color'\w'$prompt_color']'$white_color'" "\n'$prompt_color'└─'$info_color'\$\[\033[0m\] "'
 else
-	export PS1="$BLUE$fedora_icon $RESET[$BLUE$BOLD\t $BRIGHT_RED$BOLD\u$RESET$prompt_symbol$GRAY$BOLD\h $BLUE$BOLD\w$RESET]\\$ "
+	PS1=$prompt_color'┌──['$info_color'\t'$prompt_color']-${debian_chroot:+('$white_color'$debian_chroot'$prompt_color')──}${VIRTUAL_ENV:+('$white_color'$(basename $VIRTUAL_ENV)'$prompt_color')}('$info_color'\u'$prompt_symbol'\h'$prompt_color')-['$white_color'\w'$prompt_color']\n'$prompt_color'└─'$info_color'\$\[\033[0m\] '
 	unset PROMPT_COMMAND
-
-	#function __setprompt {
-	#	PS1="$PS1"
-	#}
-
-	#PROMPT_COMMAND='__setprompt'
 fi
 
-#unset PROMPT_COMMAND
-#PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ $(__git_ps1_colorize_gitstring)'
+unset white_color prompt_color info_color prompt_symbol
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*|Eterm|aterm|kterm|gnome*|alacritty)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
+xterm* | rxvt* | Eterm | aterm | kterm | gnome* | alacritty)
+	PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+	;;
+*) ;;
 esac
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+	if [ -f /usr/share/bash-completion/bash_completion ]; then
+		. /usr/share/bash-completion/bash_completion
+	elif [ -f /etc/bash_completion ]; then
+		. /etc/bash_completion
+	fi
 fi
