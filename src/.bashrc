@@ -78,7 +78,7 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 	debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-prompt_color='\[\033[1;32m\]'
+prompt_color='\[\033[;32m\]'
 info_color='\[\033[1;34m\]'
 prompt_symbol="🧑"
 
