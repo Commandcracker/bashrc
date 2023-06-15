@@ -38,6 +38,11 @@ fi
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
 	PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
+
+if [ -f ~/.bash_path ]; then
+	. ~/.bash_path
+fi
+
 export PATH
 
 # User specific aliases and functions

@@ -1,0 +1,8 @@
+#!/bin/bash
+# -*- coding: utf-8 -*-
+
+# GO
+PATH=$PATH:$HOME/go/bin
+
+# Rust
+PATH=$PATH:$HOME/.cargo/bin
