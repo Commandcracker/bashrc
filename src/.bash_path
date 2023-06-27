@@ -9,3 +9,6 @@ PATH=$PATH:$HOME/.cargo/bin
 
 # Yarn
 PATH=$PATH:$HOME/.yarn/bin/
+
+# Java
+JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
