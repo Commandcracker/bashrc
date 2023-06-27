@@ -11,4 +11,4 @@ PATH=$PATH:$HOME/.cargo/bin
 PATH=$PATH:$HOME/.yarn/bin/
 
 # Java
-JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
