@@ -158,3 +158,11 @@ extract() {
 }
 
 alias ex="extract"
+
+# Tell me what you do
+alias cp="cp -v"
+alias rm="rm -v"
+alias rmdir="rmdir -v"
+alias mv="mv -v"
+# https://superuser.com/questions/234199/good-block-size-for-disk-cloning-with-diskdump-dd#answer-234204
+alias dd="dd bs=64K status=progress"
