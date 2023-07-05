@@ -166,3 +166,29 @@ alias rmdir="rmdir -v"
 alias mv="mv -v"
 # https://superuser.com/questions/234199/good-block-size-for-disk-cloning-with-diskdump-dd#answer-234204
 alias dd="dd bs=64K status=progress"
+
+set_java_alias() {
+    local version=$1
+    local jdk_path="/usr/lib/jvm/temurin-${version}-jdk/bin/java"
+    local jre_path="/usr/lib/jvm/temurin-${version}-jre/bin/java"
+    local openjdk_path="/usr/lib/jvm/jre-${version}-openjdk/bin/java"
+    local java_path
+
+    if [[ -x "$jdk_path" ]]; then
+        java_path="$jdk_path"
+    elif [[ -x "$jre_path" ]]; then
+        java_path="$jre_path"
+    elif [[ -x "$openjdk_path" ]]; then
+        java_path="$openjdk_path"
+    else
+        return 1
+    fi
+
+    alias "java${version}=${java_path}"
+}
+
+set_java_alias 8
+set_java_alias 11
+set_java_alias 17
+set_java_alias 19
+set_java_alias 20
